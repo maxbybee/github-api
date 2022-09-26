@@ -6,7 +6,7 @@
 <br>
 
 ### Usage
-
+---
 ##### install script
 
 `wget https://raw.githubusercontent.com/maxbybee/github-api/master/github-api.sh -O github-api.sh`
@@ -20,7 +20,7 @@
 <br>
 
 #### Run Script:
-
+---
 
 
 ##### Create repo (personal)
