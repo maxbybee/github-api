@@ -1,6 +1,9 @@
 # Github-api Script
 ### Bash script to interact with the github api
 
+<br>
+<br>
+<br>
 
 ### Usage
 
@@ -12,6 +15,9 @@
 
 `chmod +x github-api.sh`
 
+<br>
+<br>
+<br>
 #### Run Script:
 
 
@@ -22,11 +28,19 @@
 ###### Create repo (for organization)
 `./github-api.sh -F PATH/TO/APIKEY -c -nNAME_OF_REPO -dDESCRIPTION_OF_REPO -o -uORGANIZATION_NAME`
 
+<br>
+<br>
+<br>
+
 ###### List public repos for account
 `./github-api.sh -l -uUSERNAME`
 
 ###### List public repos for a organization
 `./github-api.sh -o -l -uORGANIZATION_NAME`
+
+<br>
+<br>
+<br>
 
 
 ###### List all personal repos
