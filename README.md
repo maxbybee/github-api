@@ -1,17 +1,14 @@
-# github-api
-Bash script to Interact with the github api
-
 # Github-api Script
 ### Bash script to interact with the github api
 
 
 ### Usage
 
-install script
+###### install script
 
 `wget https://raw.githubusercontent.com/maxbybee/github-api/master/github-api.sh -O github-api.sh`
 
-allow script to be executed
+###### allow script to be executed
 
 `chmod +x github-api.sh`
 
