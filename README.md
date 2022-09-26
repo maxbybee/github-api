@@ -5,9 +5,9 @@
 <br>
 <br>
 
-### Usage
+#### Installation
 ---
-##### install script
+##### download from github
 
 `wget https://raw.githubusercontent.com/maxbybee/github-api/master/github-api.sh -O github-api.sh`
 
