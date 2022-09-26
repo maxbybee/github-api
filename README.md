@@ -13,7 +13,7 @@ install script
 
 allow script to be executed
 
-'chmod +x github-api.sh'
+`chmod +x github-api.sh`
 
 #### Run Script:
 
