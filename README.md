@@ -23,11 +23,11 @@
 ---
 
 
-##### Create repo (personal)
-`./github-api.sh -F PATH/TO/APIKEY -c -nNAME_OF_REPO -dDESCRIPTION_OF_REPO -p`
+##### Create repo (personal, private)
+`./github-api.sh -F PATH/TO/APIKEY -nNAME_OF_REPO -dDESCRIPTION_OF_REPO -p -c`
 
 ##### Create repo (for organization)
-`./github-api.sh -F PATH/TO/APIKEY -c -nNAME_OF_REPO -dDESCRIPTION_OF_REPO -o -uORGANIZATION_NAME`
+`./github-api.sh -F PATH/TO/APIKEY -nNAME_OF_REPO -dDESCRIPTION_OF_REPO -o -uORGANIZATION_NAME -c`
 
 <br>
 <br>
