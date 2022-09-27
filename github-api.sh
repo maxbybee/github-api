@@ -10,7 +10,7 @@ REPO_NAME="DEFAULT";
 REPO_DESC="This Repository was created without a description. How sad!";
 REPO_PRIVATE=true;
 REPO_VISIBILITY="private";
-USER=0; # if you have the username none, sorry for using you as the default :)
+USER=0; # if you have the username 0, sorry for using you as the default :)
 ORG=0;
 function interact_create {
 curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $APIKEY" $GITLINK -d '{"name":"'"$REPO_NAME"'","description":"'"$REPO_DESC"'","private":"'"$REPO_PRIVATE"'","visibility":"'"$REPO_VISIBILITY"'"}';
@@ -18,8 +18,11 @@ curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer 
 
 function interact_list {
 if [ ! ${#APIKEY} -eq 1 ]; then curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $APIKEY" $GITLINK; fi;
-if [ $USER -eq 0 ] && [ ${#APIKEY} == 1 ]; then curl  -H "Accept: application/vnd.github+json" https://api.github.com/repositories; echo ""; echo "you've just printed all the repositories!"; echo "you might want to specify a user/org with -U"; echo "Or you might want to specify an account with -K or -F"; fi;
-}
+if [ ${#APIKEY} -eq 1 ] && [ $ORG -eq 0 ]; then curl -H "Accept: application/vnd.github+json" https://api.github.com/users/$USER/repos; 
+elif [ $ORG -eq 1 ]; then curl -H "Accept: application/vnd.github+json" https://api.github.com/orgs/$USER/repos; fi;
+if [ ${#USER} -eq 1 ] && [ ${#APIKEY} == 1 ]; then curl  -H "Accept: application/vnd.github+json" https://api.github.com/repositories; echo ""; echo "you've just printed all the repositories!"; echo "you might want to specify a user/org with -U"; echo "Or you might want to specify an account with -K or -F"; fi;
+};
+
 
 # `cat << EOF` This means that cat should stop reading when EOF is detected
 function helptext {
