@@ -50,4 +50,14 @@
 ##### List all repos (organization)
 `./github-api.sh -F PATH/TO/APIKEY -l -o -uORGANIZATION_NAME`
 
+<br>
+<br>
+<br>
+
+### Todo:
+- [ ] Create repo (personal)
+- [ ] \Create repo (organization)
+- [ ] List repos (public)
+- [ ] List repos (all)
+- [ ] \List repos (all, org)
 
