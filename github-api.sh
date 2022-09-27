@@ -13,8 +13,7 @@ REPO_VISIBILITY="private";
 USER=0; # if you have the username none, sorry for using you as the default :)
 ORG=0;
 function interact_create {
-if [ $ORG -eq 0 ]; then curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $APIKEY" $GITLINK -d '{"name":"'"$REPO_NAME"'","description":"'"$REPO_DESC"'","private":"'"$REPO_PRIVATE"'","visibility":"'"$REPO_VISIBILITY"'"}' ; fi;
-if [ $ORG -eq 1 ]; then curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $APIKEY" $GITLINK  -d '{"name":"'"$REPO_NAME"'","description":"'"$REPO_DESC"'","private":"'"$REPO_PRIVATE"'", "'"$RAW"'"}'; fi;
+curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $APIKEY" $GITLINK -d '{"name":"'"$REPO_NAME"'","description":"'"$REPO_DESC"'","private":"'"$REPO_PRIVATE"'","visibility":"'"$REPO_VISIBILITY"'"}';
 };
 
 function interact_list {
@@ -70,7 +69,7 @@ Repository:
 EOF
 };
 
-PARAM=" :F:K:n:d:U:Vvhcpl";
+PARAM=" :F:K:n:d:U:Vvhcplo";
 
 while getopts $PARAM opt; do
   case $opt in
@@ -88,6 +87,11 @@ while getopts $PARAM opt; do
         OPT_F=$OPTARG;
         APIKEY=$(cat $OPTARG);
         ;;
+    o)
+	if [ $OPT_V -eq 1 ]; then echo "-o option was supplied. OPTARG: $OPTARG" >&2 ; fi;
+	ORG=1;
+	GITLINK="https://api.github.com/orgs/$USER/repos";
+         ;;
     v)
 	if [ $OPT_V -eq 1 ]; then echo "-v option was supplied." >&2 ; fi;
         echo "Name: $NAME $VERSION, By $DEVELOPER";
@@ -117,13 +121,7 @@ while getopts $PARAM opt; do
          ;;
     l)
 	if [ $OPT_V -eq 1 ]; then echo "-c option was supplied. OPTARG: $OPTARG" >&2 ; fi;
-	if [ "$GITLINK" = "https://api.github.com/user/repos" ]; then GITLINK=https://api.github.com/user/repos; fi;
         interact_list;
-         ;;
-    o)
-	if [ $OPT_V -eq 1 ]; then echo "-o option was supplied. OPTARG: $OPTARG" >&2 ; fi;
-	ORG=1;
-	GITLINK="https://api.github.com/orgs/$USER/repos";
          ;;
     :)
         echo hi;
