@@ -7,8 +7,8 @@ NAME=github-api;
 OPT_V=0;
 APIKEY=;
 REPO_NAME=DEFAULT;
-REPO_PRIVATE=;
-REPO_VISIBILITY=;
+REPO_PRIVATE=true;
+REPO_VISIBILITY=private;
 # `cat << EOF` This means that cat should stop reading when EOF is detected
 function main {
 curl -X POST -H "Accept: application/vnd.githubjson" -H "Authorization: Bearer $APIKEY" $GITLINK -d '{"name":"$REPO_NAME","private": $REPO_PRIVATE,"visibility": "$REPO_VISIBILITY"}'
