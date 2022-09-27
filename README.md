@@ -34,10 +34,10 @@
 <br>
 
 ##### List public repos for account
-`./github-api.sh -l -uUSERNAME`
+`./github-api.sh -UUSERNAME -l`
 
 ##### List public repos for a organization
-`./github-api.sh -o -l -uORGANIZATION_NAME`
+`./github-api.sh -UORGANIZATION_NAME -o -l`
 
 <br>
 <br>
@@ -48,7 +48,7 @@
 `./github-api.sh -F PATH/TO/APIKEY -l`
 
 ##### List all repos (organization)
-`./github-api.sh -F PATH/TO/APIKEY -l -o -uORGANIZATION_NAME`
+`./github-api.sh -F PATH/TO/APIKEY -UORGANIZATION_NAME -o -l`
 
 <br>
 <br>
