@@ -24,7 +24,7 @@
 
 
 ##### Create repo (personal, private)
-`./github-api.sh -F PATH/TO/APIKEY -nNAME_OF_REPO -dDESCRIPTION_OF_REPO -p -c`
+`./github-api.sh -F PATH/TO/APIKEY -nNAME_OF_REPO -dDESCRIPTION_OF_REPO  -c`
 
 ##### Create repo (for organization)
 `./github-api.sh -F PATH/TO/APIKEY -nNAME_OF_REPO -dDESCRIPTION_OF_REPO -o -uORGANIZATION_NAME -c`
