@@ -55,9 +55,9 @@
 <br>
 
 ### Todo:
-- [ x ] Create repo (personal)
-- [ ] \Create repo (organization)
-- [ x ] List repos (public)
-- [ x ] List repos (all)
-- [ ] \List repos (all, org)
+- [x] Create repo (personal)
+- [x] \Create repo (organization)
+- [x] List repos (public)
+- [x] List repos (all)
+- [x] \List repos (all, org)
 
