@@ -1,21 +1,29 @@
 #!/bin/bash
-VERSION=V0.1.0;
+VERSION=V0.1.3;
 DEVELOPER=maxbybee;
 FROM=https://github.com/maxbybee/github-api;
 GITLINK=https://api.github.com/user/repos;
 NAME=github-api;
 OPT_V=0;
-APIKEY=;
-REPO_NAME=DEFAULT;
+APIKEY=0;
+REPO_NAME="DEFAULT";
+REPO_DESC="This Repository was created without a description. How sad!";
 REPO_PRIVATE=true;
-REPO_VISIBILITY=private;
-# `cat << EOF` This means that cat should stop reading when EOF is detected
-function main {
-curl -X POST -H "Accept: application/vnd.githubjson" -H "Authorization: Bearer $APIKEY" $GITLINK -d '{"name":"$REPO_NAME","private": $REPO_PRIVATE,"visibility": "$REPO_VISIBILITY"}'
+REPO_VISIBILITY="private";
+USER=0; # if you have the username none, sorry for using you as the default :)
+ORG=0;
+function interact_create {
+if [ $ORG -eq 0 ]; then curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $APIKEY" $GITLINK -d '{"name":"'"$REPO_NAME"'","description":"'"$REPO_DESC"'","private":"'"$REPO_PRIVATE"'","visibility":"'"$REPO_VISIBILITY"'"}' ; fi;
+if [ $ORG -eq 1 ]; then curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $APIKEY" $GITLINK  -d '{"name":"'"$REPO_NAME"'","description":"'"$REPO_DESC"'","private":"'"$REPO_PRIVATE"'", "'"$RAW"'"}'; fi;
 };
 
+function interact_list {
+if [ ! ${#APIKEY} -eq 1 ]; then curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $APIKEY" $GITLINK; fi;
+if [ $USER -eq 0 ] && [ ${#APIKEY} == 1 ]; then curl  -H "Accept: application/vnd.github+json" https://api.github.com/repositories; echo ""; echo "you've just printed all the repositories!"; echo "you might want to specify a user/org with -U"; echo "Or you might want to specify an account with -K or -F"; fi;
+}
 
-function usage {
+# `cat << EOF` This means that cat should stop reading when EOF is detected
+function helptext {
 cat << EOF
 Usage: ./github-api.sh -[VvhloipCuc] &  [ -F <file location> | -K <api key> ] & -u <user/org name> -n <repository name> -d <repository description> -o <other>
 
@@ -51,7 +59,7 @@ Repository:
 
 -p             (private)       set "Private" Value to false (default: true)
 
--U             (user)          User to apply to (CANNOT be used with org)
+-U             (user)          User/Org to apply to
 
 -C             (contributors)  List Contributors
 
@@ -62,7 +70,7 @@ Repository:
 EOF
 };
 
-PARAM=" :F:K:Vvh";
+PARAM=" :F:K:n:d:U:Vvhcpl";
 
 while getopts $PARAM opt; do
   case $opt in
@@ -89,7 +97,33 @@ while getopts $PARAM opt; do
 	echo "License: BSD 3-Clause License: https://raw.githubusercontent.com/maxbybee/github-api/master/LICENSE";
 	;;
     h)
-        usage | less;
+        helptext | less;
+         ;;
+    U)
+	if [ $OPT_V -eq 1 ]; then echo "-U option was supplied. OPTARG: $OPTARG" >&2 ; fi;
+        USER=$OPTARG;
+         ;;
+    n)
+	if [ $OPT_V -eq 1 ]; then echo "-n option was supplied. OPTARG: $OPTARG" >&2 ; fi;
+        REPO_NAME=$OPTARG;
+         ;;
+    d)
+	if [ $OPT_V -eq 1 ]; then echo "-d option was supplied. OPTARG: $OPTARG" >&2 ; fi;
+        REPO_DESC=$OPTARG;
+         ;;
+    c)
+	if [ $OPT_V -eq 1 ]; then echo "-c option was supplied. OPTARG: $OPTARG" >&2 ; fi;
+        interact_create;
+         ;;
+    l)
+	if [ $OPT_V -eq 1 ]; then echo "-c option was supplied. OPTARG: $OPTARG" >&2 ; fi;
+	if [ "$GITLINK" = "https://api.github.com/user/repos" ]; then GITLINK=https://api.github.com/user/repos; fi;
+        interact_list;
+         ;;
+    o)
+	if [ $OPT_V -eq 1 ]; then echo "-o option was supplied. OPTARG: $OPTARG" >&2 ; fi;
+	ORG=1;
+	GITLINK="https://api.github.com/orgs/$USER/repos";
          ;;
     :)
         echo hi;
@@ -101,5 +135,5 @@ while getopts $PARAM opt; do
   esac
 done
 
-if [ $OPT_V -eq 1 ]; then echo " opt k: $OPT_K opt f: $OPT_F opt v: $OPT_V apikey $APIKEY"; fi;
+if [ $OPT_V -eq 1 ]; then echo " opt k: $OPT_K opt f: $OPT_F opt v: $OPT_V apikey $APIKEY";echo $GITLINK ; fi;
 
